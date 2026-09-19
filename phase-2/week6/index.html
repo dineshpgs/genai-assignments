@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple GitHub pull request code review tool.">
+  <title>ExampleOrg GitHub Code Reviewer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>[hidden] { display: none !important; }</style>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="."><span class="brand-mark">E</span><span><strong>EXAMPLEORG</strong><small>GITHUB CODE REVIEWER</small></span></a><span class="connection"><i></i> n8n ready</span></header>
+  <main>
+    <section class="intro"><p class="eyebrow">GITHUB CODE REVIEW</p><h1>Review a pull request</h1><p>Enter the repository, pull request number and code changes below. The n8n workflow will return review comments and suggestions.</p></section>
+    <section class="workspace">
+      <form id="review-form" novalidate><div class="heading"><div><p class="eyebrow">STEP 1</p><h2>Review input</h2></div><span class="method">POST /webhook/github-code-reviewer</span></div>
+        <div class="fields"><label>Repository<input id="repository" placeholder="example-org / platform-service"></label><label>Pull request<input id="pull-request" placeholder="# 2481"></label></div>
+        <label>Code diff <b>required</b><textarea id="code-diff" rows="8" placeholder="Paste the pull request diff here..."></textarea></label>
+        <div class="actions"><small>Your source stays within your configured n8n workflow.</small><button type="submit">Run code review <span>&#8599;</span></button></div><div id="message" role="alert"></div>
+      </form>
+      <section class="results"><div class="heading"><div><p class="eyebrow">STEP 2</p><h2>Review result</h2></div><span id="status" class="method">WAITING</span></div><div id="empty" class="empty"><h3>Waiting for review...</h3><p>The review result will appear here after the request is complete.</p></div><article id="result" hidden></article></section>
+    </section>
+    <section class="signals"><div><strong>Checks</strong><p>Correctness and possible bugs.</p></div><div><strong>Security</strong><p>Common security concerns.</p></div><div><strong>Testing</strong><p>Suggestions for test coverage.</p></div></section>
+  </main>
+  <footer>&copy; 2026 ExampleOrg <span>GitHub Code Reviewer</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

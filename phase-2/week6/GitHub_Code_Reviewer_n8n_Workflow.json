@@ -1,0 +1,11 @@
+{
+  "name": "ExampleOrg CodeLens - GitHub Code Reviewer",
+  "nodes": [
+    {"parameters":{"httpMethod":"POST","path":"github-code-reviewer","responseMode":"responseNode","options":{}},"id":"example-webhook","name":"Webhook","type":"n8n-nodes-base.webhook","typeVersion":2.1,"position":[-560,0],"webhookId":"github-code-reviewer"},
+    {"parameters":{"promptType":"define","text":"=Repository: {{ $json.body.repository }}\nPull request: #{{ $json.body.pullRequest }}\n\nCode diff:\n{{ $json.body.codeDiff }}\n\nReview this change as a senior GitHub code reviewer. Return concise Markdown sections: Summary, Findings, and Recommended next steps. Classify each finding as Critical, High, Medium, or Low. Focus on correctness, security, performance, maintainability, observability, and testing. Only report issues supported by the supplied code."},"id":"example-chain","name":"Code Review LLM","type":"@n8n/n8n-nodes-langchain.chainLlm","typeVersion":1.9,"position":[0,0]},
+    {"parameters":{"model":"llama-3.3-70b-versatile","options":{}},"id":"example-model","name":"Groq Chat Model","type":"@n8n/n8n-nodes-langchain.lmChatGroq","typeVersion":1,"position":[-16,224]},
+    {"parameters":{"respondWith":"json","responseBody":"={{ { review: $json.text || $json.output || $json.response || 'No review was generated' } }}","options":{}},"id":"example-response","name":"Respond to Webhook","type":"n8n-nodes-base.respondToWebhook","typeVersion":1.5,"position":[384,0]}
+  ],
+  "connections":{"Webhook":{"main":[[{"node":"Code Review LLM","type":"main","index":0}]]},"Groq Chat Model":{"ai_languageModel":[[{"node":"Code Review LLM","type":"ai_languageModel","index":0}]]},"Code Review LLM":{"main":[[{"node":"Respond to Webhook","type":"main","index":0}]]}},
+  "active":false,"settings":{"executionOrder":"v1"},"tags":[]
+}
